@@ -36,7 +36,6 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_WorkingDirectoryMode = 'a'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-nnoremap \ :Ag<Cr>
 " Mapping selecting mappings
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " xmap <leader><tab> <plug>(fzf-maps-x)
@@ -104,7 +103,6 @@ Plug 'tmhedberg/SimpylFold'
 let g:SimpylFold_docstring_preview=1
 autocmd FileType python nnoremap <space>z za
 " python 代码缩进
-Plug 'szymonmaszke/vimpyter'
 " 提示行末空格
 Plug 'https://github.com/bitc/vim-bad-whitespace'
 " molikai 配色风格
@@ -156,12 +154,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " let g:ale_sign_warning='✴'
 
 "Plug 'sjl/gundo.vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-v>"
-let g:UltiSnipsJumpForwardTrigger="<c-v>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'simnalamburt/vim-mundo'
@@ -277,33 +269,6 @@ set showcmd
 set mouse=a
 set regexpengine=1
 set viminfo+=:1000
-set wildmenu
-
-" ---------------
-" let s:timer = -1
-
-" function! s:BalloonShow(...)
-"   let s:message =
-"           \ 'Cursor is at line ' . v:beval_lnum .
-"           \', column ' . v:beval_col .
-"           \ ' of file ' .  bufname(v:beval_bufnr) .
-"           \ ' on word "' . v:beval_text . '"'
-"   call balloon_show(s:message)
-" endfunction
-
-" function! MyBalloonExpr()
-"   call timer_stop( s:timer )
-"   let s:timer = timer_start(100, function('s:BalloonShow'))
-"   return ''
-" endfunction
-
-" set mouse=a
-" set ttymouse=sgr
-" set balloonexpr=MyBalloonExpr()
-" set balloondelay=300
-set ballooneval
-set balloonevalterm
-" ---------------
 
 set clipboard=unnamed
 
