@@ -34,9 +34,14 @@ Plug 'airblade/vim-gitgutter'
 set updatetime=1000
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_WorkingDirectoryMode = 'a'
+let g:Lf_WildIgnore = {
+        \ 'dir': ['.mypy_cache', '__python__'],
+        \ 'file': ['*.png', '*.jpg', '*.gif', '*.swp']
+        \}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap \ :Ag<Cr>
+Plug 'dyng/ctrlsf.vim'
 " Mapping selecting mappings
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " xmap <leader><tab> <plug>(fzf-maps-x)
@@ -157,10 +162,25 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 "Plug 'sjl/gundo.vim'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-v>"
-let g:UltiSnipsJumpForwardTrigger="<c-v>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" Plug 'honza/vim-snippets'
+Plug 'sillybun/vim-snippets'
+Plug 'sillybun/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
+" let g:UltiSnipsExpandTrigger="<c-v>"
+" let g:UltiSnipsJumpForwardTrigger="<c-v>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+
+Plug 'ervandew/supertab'
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<Right>"
+let g:UltiSnipsJumpBackwardTrigger = "<Left>"
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -194,12 +214,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'wakatime/vim-wakatime'
 Plug 'sillybun/setbreakpoints_python'
 let g:setbreakpoints_pdb = 0
-autocmd Filetype python nnoremap <F12> <Esc>:call ToggleBreakPoint()<Cr>
+" autocmd Filetype python nnoremap <F12> <Esc>:call ToggleBreakPoint()<Cr>
 Plug 'sillybun/autoformatpythonstatement', {'do': './install.sh'}
 " let g:autoformatpython_enabled = 1
 Plug 'sillybun/vim-repl'
 let g:repl_program = {
-            \   'python': 'python',
+            \   'python': 'ptpython',
             \   'default': 'zsh'
             \   }
 let g:repl_predefine_python = {
@@ -207,9 +227,9 @@ let g:repl_predefine_python = {
             \   'matplotlib': 'from matplotlib import pyplot as plt'
             \   }
 nnoremap <leader>r :REPLToggle<Cr>
-" let g:sendtorepl_invoke_key = "<leader>ww"
-" tnoremap <leader>r <C-W>:REPLToggle<Cr>
-" let g:repl_row_width = 10
+autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
+autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
+autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
 let g:repl_position = 3
 " let g:repl_width = 70
 " let g:termdebug_wide = 1
@@ -278,6 +298,7 @@ set mouse=a
 set regexpengine=1
 set viminfo+=:1000
 set wildmenu
+set noerrorbells
 
 " ---------------
 " let s:timer = -1
@@ -301,8 +322,6 @@ set wildmenu
 " set ttymouse=sgr
 " set balloonexpr=MyBalloonExpr()
 " set balloondelay=300
-set ballooneval
-set balloonevalterm
 " ---------------
 
 set clipboard=unnamed
