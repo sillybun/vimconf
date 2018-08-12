@@ -217,9 +217,9 @@ let g:setbreakpoints_pdb = 0
 " autocmd Filetype python nnoremap <F12> <Esc>:call ToggleBreakPoint()<Cr>
 Plug 'sillybun/autoformatpythonstatement', {'do': './install.sh'}
 " let g:autoformatpython_enabled = 1
-Plug 'sillybun/vim-repl'
+Plug 'sillybun/vim-repl', {'do': './install.sh'}
 let g:repl_program = {
-            \   'python': 'ptpython',
+            \   'python': 'ipython',
             \   'default': 'zsh'
             \   }
 let g:repl_predefine_python = {
@@ -299,6 +299,7 @@ set regexpengine=1
 set viminfo+=:1000
 set wildmenu
 set noerrorbells
+" set hidden
 
 " ---------------
 " let s:timer = -1
@@ -463,6 +464,8 @@ tnoremap <C-h> <C-w><C-h>
 tnoremap <C-j> <C-w><C-j>
 tnoremap <C-k> <C-w><C-k>
 tnoremap <C-l> <C-w><C-l>
+" tnoremap <Esc> <C-w>N
+
 
 " au CursorHoldI * stopinsert
 " au InsertEnter * let updaterestore=&updatetime | set updatetime=10000
