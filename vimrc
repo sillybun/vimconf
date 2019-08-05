@@ -31,16 +31,20 @@ Plug 'https://github.com/Raimondi/delimitMate'
 "   \ }
 
 Plug 'airblade/vim-gitgutter'
+" 展示git版本之间的区别
 set updatetime=1000
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
 let g:Lf_WorkingDirectoryMode = 'a'
 let g:Lf_WildIgnore = {
         \ 'dir': ['.mypy_cache', '__python__'],
-        \ 'file': ['*.png', '*.jpg', '*.gif', '*.swp']
+        \ 'file': ['*.png', '*.jpg', '*.gif', '*.swp', '*.gif']
         \}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-nnoremap \ :Ag<Cr>
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+" nnoremap \ :Ag<Cr>
+nnoremap \ :Leaderf rg<Cr>
+
 Plug 'dyng/ctrlsf.vim'
 " Mapping selecting mappings
 " nmap <leader><tab> <plug>(fzf-maps-n)
@@ -109,7 +113,6 @@ Plug 'tmhedberg/SimpylFold'
 let g:SimpylFold_docstring_preview=1
 autocmd FileType python nnoremap <space>z za
 " python 代码缩进
-Plug 'szymonmaszke/vimpyter'
 " 提示行末空格
 Plug 'https://github.com/bitc/vim-bad-whitespace'
 " molikai 配色风格
@@ -125,6 +128,15 @@ let g:airline_right_sep = '◀'
 let g:airline_right_alt_sep = '❮'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
+" function! GetCurrentInput()
+"     let l:name = system('xkbswitch -g')
+"     if l:name == 0
+"         return '中文'
+"     else
+"         return 'Eng'
+"     endif
+" endfunction
+" let g:airline_section_y = '%{GetCurrentInput()}'
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -142,6 +154,7 @@ Plug 'easymotion/vim-easymotion'
 nmap <leader>s <Plug>(easymotion-s)
 " 异步执行
 Plug 'skywind3000/asyncrun.vim'
+Plug 'sillybun/zytutil'
 Plug 'w0rp/ale'
 nmap <silent> <leader>b <Plug>(ale_previous_wrap)
 nmap <silent> <leader>n <Plug>(ale_next_wrap)
@@ -194,8 +207,8 @@ let g:mundo_prefer_python3 = 1
 "let g:gundo_right = 1
 nnoremap <leader>h :MundoToggle<CR>
 " Plug 'terryma/vim-expand-region'
-Plug 'https://github.com/kana/vim-textobj-user'
-Plug 'sgur/vim-textobj-parameter'
+" Plug 'https://github.com/kana/vim-textobj-user'
+" Plug 'sgur/vim-textobj-parameter'
 Plug 'Yggdroot/indentLine'
 " Plug 'https://github.com/kana/vim-textobj-line'
 " Plug 'https://github.com/kana/vim-textobj-entire'
@@ -211,21 +224,31 @@ Plug 'Yggdroot/indentLine'
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
-Plug 'wakatime/vim-wakatime'
-Plug 'sillybun/setbreakpoints_python'
-let g:setbreakpoints_pdb = 0
+" Plug 'wakatime/vim-wakatime'
+
+Plug 'sillybun/vim-barbaric'
+let g:barbaric_default = 2
+
+" Plug 'sillybun/setbreakpoints_python'
+" let g:setbreakpoints_pdb = 0
 " autocmd Filetype python nnoremap <F12> <Esc>:call ToggleBreakPoint()<Cr>
 Plug 'sillybun/autoformatpythonstatement', {'do': './install.sh'}
 " let g:autoformatpython_enabled = 1
-Plug 'sillybun/vim-repl', {'do': './install.sh'}
+Plug 'sillybun/vim-repl'
 let g:repl_program = {
             \   'python': 'ipython',
-            \   'default': 'zsh'
+            \   'default': 'zsh',
+            \   'r': 'R',
+            \   'lua': 'lua',
             \   }
 let g:repl_predefine_python = {
             \   'numpy': 'import numpy as np',
             \   'matplotlib': 'from matplotlib import pyplot as plt'
             \   }
+" let g:repl_checkpoint_position = '~/.temp/'
+let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ']
+let g:repl_cursor_down = 1
+let g:repl_python_automerge = 1
 nnoremap <leader>r :REPLToggle<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
@@ -233,6 +256,7 @@ autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
 let g:repl_position = 3
 " let g:repl_width = 70
 " let g:termdebug_wide = 1
+Plug 'sillybun/vim-async'
 Plug 'sillybun/vim-autodoc'
 " let g:autodoc_debug_mode = 1
 let g:autodoc_display_runtime_info = 1
@@ -247,6 +271,16 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'crusoexia/vim-monokai'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
+Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-ingo-library'
+nmap <Leader>N <Plug>MarkConfirmAllClear
+
+" Plug 'tenfyzhong/CompleteParameter.vim'
+" inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+" smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+" imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+" smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+" imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 "
 "安装插件写在这之前
 " call vundle#end()            " required
@@ -333,7 +367,9 @@ nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 nnoremap tt :tab split<CR>
 nnoremap <leader>j <C-f>zz
+vnoremap <leader>j <C-f>zz
 nnoremap <leader>k <C-b>zz
+vnoremap <leader>k <C-b>zz
 onoremap p i(
 onoremap in( :<c-u>normal! f(vi(<cr>
 
@@ -353,7 +389,20 @@ vnoremap < <`[V`]
 vnoremap > >`[V`]
 
 inoremap <C-E> <Esc>$a
-inoremap <C-A> <Esc>0i
+inoremap <C-A> <Esc>^i
+
+inoremap 。 .
+inoremap ， ,
+inoremap ？ ?
+inoremap 【 [
+inoremap 】 ]
+inoremap 「 {
+inoremap 」 }
+inoremap …… ^
+inoremap （ (
+inoremap ） )
+
+set langmap=xx
 
 
 " for LISP
@@ -375,7 +424,7 @@ au Filetype python hi pythonBoolean ctermfg=93
 au Filetype python hi pythonBooleanbefore ctermfg=93
 
 " for youcompleteme
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
 autocmd Filetype python,c,cpp,Java,vim nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处
 let g:ycm_key_invoke_completion = '<c-z>'
@@ -384,12 +433,16 @@ let g:ycm_semantic_triggers =  {
             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
             \ 'cs,lua,javascript': ['re!\w{2}'],
             \ }
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_disable_for_files_larger_than_kb = 2000
 set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 "let g:ycm_python_binary_path = '/Users/zhangyiteng/miniconda3/bin/python'
 let g:ycm_python_binary_path = 'python'
 let g:ycm_register_as_syntastic_checker = 0
-let g:ycm_max_num_candidates = 30
+let g:ycm_max_num_candidates = 70
 let g:ycm_complete_in_strings=1
 let g:ycm_show_diagnostics_ui = 0
 " let g:ycm_log_level = 'debug'
@@ -464,6 +517,10 @@ tnoremap <C-h> <C-w><C-h>
 tnoremap <C-j> <C-w><C-j>
 tnoremap <C-k> <C-w><C-k>
 tnoremap <C-l> <C-w><C-l>
+tnoremap <C-n> <C-w>N
+" tnoremap <Esc> <C-w>N
+tnoremap <ScrollWheelUp> <C-w>Nk
+tnoremap <ScrollWheelDown> <C-w>Nj
 " tnoremap <Esc> <C-w>N
 
 
